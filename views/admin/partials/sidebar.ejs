@@ -1,0 +1,23 @@
+<div class="sidebar-top">
+<%-include("hamburger")-%>
+<%-include("sidebar-item", { 
+  sidebar_item: "Profile", 
+  sidebar_logo: '<i class="fa fa-user"></i>', 
+  onclick_action: 'getProfile'})-%>
+
+<%-include("sidebar-item", { 
+  sidebar_item: "Reports", 
+  sidebar_logo: '<i class="fa fa-print"></i>', 
+  onclick_action: 'getReports'})-%>
+
+<%-include("sidebar-item", {
+  sidebar_item: "Generate", 
+  sidebar_logo: '<i class="fa fa-microphone"></i>', 
+  onclick_action: 'getGenerate'})-%>
+
+</div>
+<div class="sidebar-bottom">
+  <%-include("changelog")-%>
+  <%-include("light")-%>
+  <%-include("logoff")-%>
+</div>

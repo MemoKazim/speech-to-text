@@ -1,0 +1,5 @@
+assets/uploads/*
+assets/reports/*
+node_modules/*
+routes/*
+.env
