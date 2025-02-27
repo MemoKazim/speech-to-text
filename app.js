@@ -10,6 +10,7 @@ const root = require("./routes/rootRoute");
 // =============================| SETTINGS |=============================
 const app = express();
 app.use(express.static(__dirname + "/assets"));
+app.use(express.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -19,7 +20,6 @@ app.use(
 app.set("view engine", "ejs");
 app.use("/admin", admin);
 app.use("/api", api);
-app.use("/user", user);
 app.use("/", root);
 
 module.exports = app;

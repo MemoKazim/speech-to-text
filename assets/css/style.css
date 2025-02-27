@@ -702,3 +702,31 @@ form label {
   height: 3.5rem;
   padding: 0.5rem;
 }
+.file-list {
+  margin-top: 20px;
+}
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+.remove-btn {
+  cursor: pointer;
+  color: red;
+}
+.upload-btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.dropzone {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  padding: 20px;
+  border: 2px dashed #ccc;
+}

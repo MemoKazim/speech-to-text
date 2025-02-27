@@ -6,28 +6,29 @@ const Report = require("../models/reportModel");
 const multer = require("multer");
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/uploads");
+    cb(null, "uploads/audios");
   },
   filename: (req, file, cb) => {
     const ext = file.mimetype.split("/")[1];
-    cb(null, `${Date.now()}-${uniqid()}.${ext}`);
+    cb(null, `${uniqid()}.${ext}`);
   },
 });
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
-    cb(null, true);
-  } else {
-    cb(
-      res.status(400).redirect(req.path, { message: "Only image allowed!" }),
-      false
-    );
-  }
-};
+// const multerFilter = (req, file, cb) => {
+//   if (file.mimetype.startsWith("image")) {
+//     cb(null, true);
+//   } else {
+//     cb(
+//       res.status(400).redirect(req.path, { message: "Only image allowed!" }),
+//       false
+//     );
+//   }
+// };
 
 const upload = multer({
   storage: multerStorage,
-  fileFilter: multerFilter,
 });
+
+exports.upload = upload;
 
 // =================|DASHBOARD|==================
 exports.getDashboard = async (req, res) => {
@@ -43,10 +44,18 @@ exports.getReports = async (req, res) => {
 };
 
 exports.getNewReport = async (req, res) => {
+  res.render("admin/pages/upload");
   //
 };
 
 exports.getReport = async (req, res) => {
+  //
+};
+
+exports.postUpload = async (req, res) => {
+  console.log("Received Request Body:", req.body);
+  console.log("Received Request Files:", req.files);
+  res.send("Ok");
   //
 };
 

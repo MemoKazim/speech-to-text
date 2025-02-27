@@ -18,7 +18,7 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.getLogin = async (req, res, next) => {
-  res.render("user/pages/login", { message: undefined });
+  res.render("admin/pages/login", { message: undefined });
 };
 
 exports.postLogin = async (req, res, next) => {
@@ -28,14 +28,14 @@ exports.postLogin = async (req, res, next) => {
     httpOnly: true,
   };
   if (!email || !password) {
-    return res.status(401).render("user/pages/login", {
+    return res.status(401).render("admin/pages/login", {
       message: "Incorrect email or password",
     });
   }
   const user = await User.find({ email: email }).select("+password");
   const result = await user[0].correctPassword(user[0].password, password);
   if (!result || !user) {
-    return res.status(401).render("user/pages/login", {
+    return res.status(401).render("admin/pages/login", {
       message: "Incorrect email or password",
     });
   }
@@ -51,7 +51,10 @@ exports.postLogin = async (req, res, next) => {
     return res
       .status(200)
       .cookie("jwt", token, cookieOptions)
-      .redirect("/user/dashboard");
+      .render("error/error_client", {
+        status_code: "403",
+        message: "Forbidden",
+      });
   }
 };
 exports.forgotPassword = async (req, res) => {
@@ -108,6 +111,7 @@ exports.logoff = async (req, res, next) => {
   res.status(200).redirect("/");
 };
 
+// TODO: Security Failure. Need to change logic
 exports.postRegister = async (req, res, next) => {
   const username = "admin";
   const password = "admin";

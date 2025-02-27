@@ -1,0 +1,53 @@
+<%-include("../partials/header", {title: "Dashboard"})-%>
+<body>
+  <div class="sidebar" data-theme="light">
+      <%-include("../partials/sidebar")-%>
+  </div>
+  <div class="content-home" data-theme="light">
+    <form class="dropzone" id="myDropzone" data-theme="light" enctype="multipart/form-data"></form>
+    <div class="file-list" id="fileList"></div>
+    <button id="uploadBtn" class="upload-btn" data-theme="light">Upload Files</button>
+  </div>
+
+  <script>
+    Dropzone.autoDiscover = false;
+    const myDropzone = new Dropzone("#myDropzone", {
+      dictDefaultMessage: "Drag and drop files here or click to select",
+      url: "/admin/reports/new",
+      autoProcessQueue: false,
+      uploadMultiple: true,
+      paramName: "files",
+      parallelUploads: 100,
+      acceptedFiles: "image/*",  // Accept only images
+      addRemoveLinks: false,
+      success: function(file) {
+        const fileList = document.getElementById("fileList");
+        const fileItem = document.createElement("div");
+        fileItem.className = "file-item";
+        fileItem.innerHTML = `
+          <span>${file.name} (${(file.size / 1024).toFixed(2)} KB)</span>
+          <i class="fa-solid fa-xmark remove-btn" data-name="${file.name}"></i>
+        `;
+        fileList.appendChild(fileItem);
+        console.log("File uploaded:", file);
+      }
+    });
+
+    document.getElementById("fileList").addEventListener("click", (event) => {
+      if (event.target.classList.contains("remove-btn")) {
+        const fileName = event.target.getAttribute("data-name");
+        event.target.parentElement.remove();
+        const fileToRemove = myDropzone.files.find(f => f.name === fileName);
+        if (fileToRemove) {
+          myDropzone.removeFile(fileToRemove);
+        }
+      }
+    });
+
+    document.getElementById("uploadBtn").addEventListener("click", () => {
+      console.log("Uploading files...");
+      console.log(myDropzone.files); // Check this in the browser console
+      myDropzone.processQueue();
+    });
+  </script>
+<%-include("../partials/footer")-%>
