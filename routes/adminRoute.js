@@ -9,6 +9,7 @@ router
   .all(authController.isAdmin);
 
 router.get("/dashboard", adminController.getDashboard);
+router.get("/test", adminController.getTest);
 router.get("/reports", adminController.getReports);
 router.get("/reports/new", adminController.getNewReport);
 router.post(

@@ -1,27 +1,30 @@
-const getReconciliation = () => {
-  var xhttp = new XMLHttpRequest();
-  document.getElementById("content-home").innerHTML = `
-    <div class="loading-snippet">
-      <p>Loading reconciliation page, please wait...</p>
-      <i class="fa-solid fa-spinner fa-3x spin"></i>
-    </div>
-  `;
-  window.history.pushState(
-    "Reconciliation",
-    "Dashboard | Reconciliation",
-    "/dashboard/reconciliation"
-  );
-  xhttp.onreadystatechange = () => {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById("content-home").innerHTML = xhttp.responseText;
-    }
-  };
-  xhttp.open("GET", "/dashboard/reconciliation", true);
-  xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-  xhttp.send();
-};
+const home = document.getElementById("content-home");
+
+// const getReconciliation = () => {
+//   var xhttp = new XMLHttpRequest();
+//   document.getElementById("content-home").innerHTML = `
+//     <div class="loading-snippet">
+//       <p>Loading reconciliation page, please wait...</p>
+//       <i class="fa-solid fa-spinner fa-3x spin"></i>
+//     </div>
+//   `;
+//   window.history.pushState(
+//     "Reconciliation",
+//     "Dashboard | Reconciliation",
+//     "/dashboard/reconciliation"
+//   );
+//   xhttp.onreadystatechange = () => {
+//     if (xhttp.readyState == 4 && xhttp.status == 200) {
+//       document.getElementById("content-home").innerHTML = xhttp.responseText;
+//     }
+//   };
+//   xhttp.open("GET", "/dashboard/reconciliation", true);
+//   xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+//   xhttp.send();
+// };
 
 const getProfile = () => {
+  home.style.all = "";
   var xhttp = new XMLHttpRequest();
   window.history.pushState(
     "Profile",
@@ -31,7 +34,7 @@ const getProfile = () => {
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       console.log(xhttp.responseText);
-      document.getElementById("content-home").innerHTML = xhttp.responseText;
+      home.innerHTML = xhttp.responseText;
     }
   };
   xhttp.open("GET", "/dashboard/profile", true);
@@ -40,28 +43,44 @@ const getProfile = () => {
 };
 
 const getReports = () => {
+  home.style.all = "";
+  var xhttp = new XMLHttpRequest();
+  window.history.pushState("Reports", "Dashboard | Reports", "/admin/reports");
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      home.innerHTML = xhttp.responseText;
+    }
+  };
+  xhttp.open("GET", "/api/reports", true);
+  xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  xhttp.send();
+};
+
+const getNewReport = () => {
+  home.style.all = "";
   var xhttp = new XMLHttpRequest();
   window.history.pushState(
-    "Reports",
-    "Dashboard | Reports",
-    "/dashboard/reports"
+    "New Report",
+    "Dashboard | New Report",
+    "/admin/reports/new"
   );
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById("content-home").innerHTML = xhttp.responseText;
+      home.innerHTML = xhttp.responseText;
     }
   };
-  xhttp.open("GET", "/dashboard/reports", true);
+  xhttp.open("GET", "/admin/reports/new", true);
   xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   xhttp.send();
 };
 
 const getUsers = () => {
+  home.style.all = "";
   var xhttp = new XMLHttpRequest();
   window.history.pushState("Users", "Dashboard | Users", "/dashboard/users");
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById("content-home").innerHTML = xhttp.responseText;
+      home.innerHTML = xhttp.responseText;
     }
   };
   xhttp.open("GET", "/dashboard/users", true);
@@ -70,6 +89,7 @@ const getUsers = () => {
 };
 
 const getCreateUser = () => {
+  home.style.all = "";
   var xhttp = new XMLHttpRequest();
   window.history.pushState(
     "Create user",
@@ -78,7 +98,7 @@ const getCreateUser = () => {
   );
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById("content-home").innerHTML = xhttp.responseText;
+      home.innerHTML = xhttp.responseText;
     }
   };
   xhttp.open("GET", "/dashboard/createUser", true);

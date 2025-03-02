@@ -4,7 +4,7 @@ const validator = require("validator");
 const { promisify } = require("util");
 
 exports.getSignup = (req, res, next) => {
-  res.render("user/pages/signup");
+  res.render("admin/pages/signup");
 };
 exports.postSignup = (req, res, next) => {
   const newUser = new User({
@@ -64,7 +64,7 @@ exports.isAuthenticated = async (req, res, next) => {
   if (!req.headers.cookie || req.headers.cookie === undefined) {
     return res.status(401).render("error/error_client", {
       status_code: 401,
-      message: "Unauthorized!",
+      message: "Unauthorized",
     });
   }
   let token = req.headers.cookie.split("=")[1];
@@ -84,7 +84,7 @@ exports.isAdmin = async (req, res, next) => {
   if (!req.headers.cookie || req.headers.cookie === undefined) {
     return res.status(401).render("error/error_client", {
       status_code: 401,
-      message: "Unauthorized!",
+      message: "Unauthorized",
     });
   }
   let token = req.headers.cookie.split("=")[1];
@@ -100,7 +100,7 @@ exports.isAdmin = async (req, res, next) => {
   if (freshUser.role == "user") {
     return res.status(401).render("error/error_client", {
       status_code: 401,
-      message: "Unauthorized!",
+      message: "Unauthorized",
     });
   }
   next();
@@ -124,5 +124,5 @@ exports.postRegister = async (req, res, next) => {
     role: validator.escape(role),
   });
   newUser.save();
-  res.status(200).render("user/pages/login", { message: null });
+  res.status(200).render("admin/pages/login", { message: null });
 };

@@ -1,32 +1,19 @@
 const mongoose = require("mongoose");
 
 const reportShcema = new mongoose.Schema({
-  description: {
+  name: {
     type: String,
   },
   status: {
     type: String,
+    enum: ["Pending", "Success", "Error"],
   },
-  stage: {
-    type: String,
-    enum: ["Submitted", "Reviewed", "Investigating", "Resolved"],
+  generatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
-  category: {
-    type: String,
-  },
-  severity: {
-    type: String,
-  },
-  reason: {
-    type: Object,
-  },
-  potential_threat: {
-    type: Object,
-  },
-  mitigation: {
-    type: Object,
-  },
-  conclusion: {
+  textData: {
     type: String,
   },
   date: {

@@ -10,6 +10,7 @@ const root = require("./routes/rootRoute");
 // =============================| SETTINGS |=============================
 const app = express();
 app.use(express.static(__dirname + "/assets"));
+app.use(express.static(__dirname + "/reports"));
 app.use(express.json());
 app.use(
   bodyParser.urlencoded({
