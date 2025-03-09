@@ -5,6 +5,7 @@ const Report = require("../models/reportModel");
 const config = require("../config/config");
 
 const { spawn } = require("child_process");
+const path = require("path");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const uniqid = require("uniqid");
@@ -72,8 +73,16 @@ exports.getNewReport = async (req, res) => {
 };
 
 exports.getReport = async (req, res) => {
-  res.send(`../reports/${req.params.id}`);
-  //
+  const filename = req.params.id;
+  console.log(filename);
+  const filePath = path.join(__dirname, "../reports", filename);
+  console.log(filePath);
+  res.download(filePath, filename, (err) => {
+    if (err) {
+      console.error("File download error:", err);
+      res.status(500).send("Error downloading file");
+    }
+  });
 };
 
 exports.postUpload = async (req, res) => {
@@ -170,13 +179,17 @@ exports.processAudio = async (filenames) => {
     // Handle process exit
     worker.on("exit", (code) => {
       if (code === 0) {
-        Report.find({ name: filename }).then((report) => {
-          report.status = "Success";
-        });
+        Report.findOneAndUpdate({ name: filename }, { status: "Success" }).then(
+          (report) => {
+            console.log(report);
+          }
+        );
       } else {
-        Report.find({ name: filename }).then((report) => {
-          report.status = "Error";
-        });
+        Report.findOneAndUpdate({ name: filename }, { status: "Error" }).then(
+          (report) => {
+            console.log(report);
+          }
+        );
       }
     });
   });
