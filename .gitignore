@@ -1,4 +1,6 @@
 assets/uploads/*
 assets/reports/*
+uploads/audios/*
+reports/*
 node_modules/*
 .env
