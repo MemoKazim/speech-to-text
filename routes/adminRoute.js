@@ -18,5 +18,6 @@ router.post(
   adminController.postUpload
 );
 router.get("/reports/:id", adminController.getReport);
+router.get("/users", adminController.getUsers);
 
 module.exports = router;

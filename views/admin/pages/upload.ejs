@@ -17,7 +17,7 @@
     <button class="send-button" id="sendButton">Send Files</button>
   </div>
 
-  <script src="/js/upload.js"></script>
-<%if (!ajax) {%>
+  <%if (!ajax) {%>
+    <script src="/js/upload.js"></script>
   <%-include("../partials/footer")-%>
 <%}%>

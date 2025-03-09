@@ -115,7 +115,8 @@ exports.changePassword = async (req, res) => {
   });
 };
 exports.getProfile = async (req, res) => {
-  res.status(200).render("admin/pages/profile");
+  // const data = await User.find();
+  res.status(200).render("admin/pages/profile", { data: data });
 };
 exports.getUser = async (req, res) => {
   const data = await User.find(req.params.id);
@@ -123,7 +124,13 @@ exports.getUser = async (req, res) => {
 };
 exports.getUsers = async (req, res) => {
   const data = await User.find();
-  res.status(200).render("admin/pages/users", { data: data });
+  res
+    .status(200)
+    .render("admin/pages/users", {
+      data: data,
+      ajax: false,
+      page_name: "Users",
+    });
 };
 exports.deleteUser = async (req, res) => {
   await User.findByIdAndRemove(req.params.id);

@@ -26,18 +26,14 @@ const home = document.getElementById("content-home");
 const getProfile = () => {
   home.style.all = "";
   var xhttp = new XMLHttpRequest();
-  window.history.pushState(
-    "Profile",
-    "Dashboard | Profile",
-    "/dashboard/profile"
-  );
+  window.history.pushState("Users", "Dashboard | Users", "/admin/users");
   xhttp.onreadystatechange = () => {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       console.log(xhttp.responseText);
       home.innerHTML = xhttp.responseText;
     }
   };
-  xhttp.open("GET", "/dashboard/profile", true);
+  xhttp.open("GET", "/admin/users", true);
   xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
   xhttp.send();
 };
